@@ -18,11 +18,11 @@ for (const scenario of CHECKOUT_SCENARIOS) {
     await test.step('Log in', async () => {
       await loginPage.goto();
       await loginPage.login(USERS.standard.username, USERS.standard.password);
-      // Web-first assertion: retries until the page loads (no fixed waits)
+      // Web-first assertion: retries until the inventory page loads (no fixed waits)
       await expect(page).toHaveURL(/inventory\.html/);
     });
 
-    // Prices are read from the page at runtime, in cents; nothing is hardcoded in the data file
+    // Prices are read from the page at runtime, in cents; nothing is hardcoded
     const prices: number[] = [];
 
     await test.step(`Add ${scenario.products.length} product(s) to the cart`, async () => {
@@ -56,7 +56,7 @@ for (const scenario of CHECKOUT_SCENARIOS) {
     await test.step('Finish checkout', async () => {
       await checkoutPage.finish();
       await expect(page).toHaveURL(/checkout-complete\.html/);
-      await expect(checkoutPage.completeText).toBeVisible();
+      await expect(checkoutPage.completeText).toBeVisible(); // locator from your recording
     });
   });
 }
