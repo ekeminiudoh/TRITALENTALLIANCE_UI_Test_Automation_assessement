@@ -1,0 +1,21 @@
+{
+  "name": "tritalentalliance_ui_test_automation_assessement",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekeminiudoh/TRITALENTALLIANCE_UI_Test_Automation_assessement.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ekeminiudoh/TRITALENTALLIANCE_UI_Test_Automation_assessement/issues"
+  },
+  "homepage": "https://github.com/ekeminiudoh/TRITALENTALLIANCE_UI_Test_Automation_assessement#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6"
+  }
+}
