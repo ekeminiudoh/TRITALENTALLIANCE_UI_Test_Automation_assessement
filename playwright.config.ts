@@ -1,4 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
+import { ENV } from './config/Test-data';
+
+const isCI = Boolean(
+  (globalThis as typeof globalThis & { process?: { env?: { CI?: string } } }).process?.env?.CI,
+);
+
 
 /**
  * Read environment variables from file.
@@ -16,11 +22,11 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  forbidOnly: isCI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: isCI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: isCI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -31,6 +37,8 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
+
+
 
   /* Configure projects for major browsers */
   projects: [
@@ -47,6 +55,17 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+    },
+
+    {
+      name: 'ui',
+      testDir: './tests/ui',
+      use: { ...devices['Desktop Chrome'], baseURL: ENV.uiBaseUrl },
+    },
+    {
+      name: 'api',
+      testDir: './tests/api',
+      use: { baseURL: ENV.apiBaseUrl, extraHTTPHeaders: { Accept: 'application/json' } },
     },
 
     /* Test against mobile viewports. */
