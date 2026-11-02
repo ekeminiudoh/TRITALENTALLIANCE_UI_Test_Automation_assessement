@@ -1,6 +1,6 @@
 import { type Locator, type Page } from '@playwright/test';
 import { toCents } from '../utils/money';
-import { type CustomerInfo } from '../config/Test-data';
+import { type CustomerInfo } from '../config/test-data';
 
 export class CheckoutPage {
   private readonly firstName: Locator;
